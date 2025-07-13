@@ -7,7 +7,8 @@ const NavBar = () => {
   const currentPath = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
-  const links = [
+   const links = [
+    { label: "View all", href: "/" },
     { label: "work from home", href: "/home" },
     { label: "work from netbox", href: "/netbox" },
   ];
