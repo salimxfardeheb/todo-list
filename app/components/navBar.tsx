@@ -1,51 +1,59 @@
 'use client'
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
 const NavBar = () => {
-  const currentPath = usePathname()
+  const currentPath = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+
   const links = [
     { label: "work from home", href: "/home" },
     { label: "work from netbox", href: "/netbox" },
   ];
+
   return (
-    <nav className="flex items-center justify-between p-4">
-      {/* logo */}
-      <Link href="/" className="flex md:justify-center items-center m-4 md:gap-4">
-        <img src="/checklist.png" alt="check-list-logo" className="max-w-18" />
-        <p className="text-4xl font-extrabold text-green-600">TODO LIST</p>
-      </Link>
-      <ul className="md:flex flex-col md:flex-row gap-8 mx-20 text-xl font-black hidden text-green-900">
-        {links.map((link) => (
-          <Link
-          key={link.href} 
-          href={link.href} className={`${link.href === currentPath ? 'text-green-500' : 'text-green-800'} hover:text-blue-700 transition-colors`}>{link.label}</Link>
-        ))}
-      </ul>
-      <button
-        data-collapse-toggle="navbar-default"
-        type="button"
-        className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-        aria-controls="navbar-default"
-        aria-expanded="false"
-      >
-        <svg
-          className="w-5 h-5"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 17 14"
+    <nav className="flex flex-col md:flex-row items-center justify-between py-4 bg-white">
+      {/* Logo */}
+      <div className="flex justify-between items-center w-full md:w-auto px-4">
+        <Link href="/" className="flex items-center gap-4">
+          <img src="/checklist.png" alt="check-list-logo" className="w-10 h-10" />
+          <p className="text-2xl font-extrabold text-green-600">TODO LIST</p>
+        </Link>
+
+        {/* Burger Button */}
+        <button
+          type="button"
+          className="md:hidden inline-flex items-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none"
+          onClick={() => setIsOpen(!isOpen)}
         >
-          <path
+          <svg
+            className="w-6 h-6"
+            fill="none"
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M1 1h15M1 7h15M1 13h15"
-          />
-        </svg>
-      </button>
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Navigation Links */}
+      <div className={`${isOpen ? "flex" : "hidden"} md:block w-full md:w-auto justify-center mt-6 border-b md:border-0 pb-6 px-12`}>
+        <ul className="flex flex-col md:flex-row gap-4 md:gap-8 mt-4 md:mt-0 text-xl font-black text-green-900">
+          {links.map((link) => (
+            <li key={link.href} className="pb-2">
+              <Link
+                href={link.href}
+                className={`${link.href === currentPath ? 'text-green-500' : 'text-green-800'} hover:text-blue-700 transition-colors`}
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </nav>
   );
 };

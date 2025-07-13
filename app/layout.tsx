@@ -4,7 +4,6 @@ import { IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
 import NavBar from "./components/navBar";
-import Footer from "./components/footer";
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
@@ -34,7 +33,6 @@ export default function RootLayout({
       <body className={`${ibmPlexMono.className} antialiased min-h-screen bg-linear-to-b from-90% from-white to-blue-400`}>
         <NavBar/>
         <main>{children}</main>
-        <Footer/>
         </body>
     </html>
   );
