@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { Viewport } from 'next'
 import { IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -14,8 +15,14 @@ const ibmPlexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "Todo List",
   description: "more organized",
-  viewport: "width=device-width, initial-scale=1.0",
 };
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
 
 export default function RootLayout({
   children,
