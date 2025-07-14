@@ -1,11 +1,14 @@
 "use client";
-import { useState } from "react";
+import { use, useState } from "react";
 import { IoIosAdd } from "react-icons/io";
 
 const addTodo = () => {
   const typeOfTodo = ["Home", "Netbox"];
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("Select category");
+  const [todoContent, setTodoContent] = useState("");
+  const [showMessage, setShowMessage] = useState(false);
+  const [contentMessage, setContentMessage] = useState("");
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
@@ -15,11 +18,26 @@ const addTodo = () => {
     setSelectedCategory(category);
     setShowDropdown(false);
   };
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (selectedCategory !== "Select category") {
+      const newTodo = {
+        category: selectedCategory,
+        content: todoContent,
+      };
+      console.log(newTodo);
+      setTodoContent("");
+      setSelectedCategory("Select category");
+      setContentMessage("Data added succesfully !");
+    } else setContentMessage("select category please...");
+
+    setShowMessage(true);
+  };
 
   return (
     <div>
-      <div className="flex justify-center mt-10">
-        <form className="w-full max-w-xl p-6">
+      <div className="flex flex-col justify-center items-center mt-10">
+        <form className="w-full max-w-xl p-6" onSubmit={handleSubmit}>
           <div className="flex flex-col md:flex-row gap-2 items-center">
             {/* Dropdown */}
             <div className="relative w-full md:w-1/3">
@@ -67,18 +85,21 @@ const addTodo = () => {
               <input
                 type="text"
                 placeholder="Add new todo..."
+                value={todoContent}
+                onChange={(e) => setTodoContent(e.target.value)}
                 required
                 className="flex-grow p-2.5 text-sm text-gray-900  border border-gray-300 rounded-l-lg bg-blue-200"
               />
               <button
                 type="submit"
-                className="p-2.5 text-sm bg-gradient-to-l from-blue-500 to-blue-200 rounded-r-lg cursor-pointer"
+                className="p-2.5 text-sm bg-gradient-to-l from-blue-500 to-blue-200 hover:bg-blue-500 hover:bg-none transition-opacity hover:scale-[101%] rounded-r-lg cursor-pointer"
               >
                 <IoIosAdd size={22} className="text-white" />
               </button>
             </div>
           </div>
         </form>
+            <span>{contentMessage}</span>
       </div>
     </div>
   );
