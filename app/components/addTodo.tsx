@@ -1,6 +1,10 @@
 "use client";
-import { use, useState } from "react";
+import { useState } from "react";
 import { IoIosAdd } from "react-icons/io";
+import prisma from "@/lib/prisma";
+import { addTodoAction } from "@/app/actions/addTodo";
+
+type Category = "Home" | "Netbox";
 
 const addTodo = () => {
   const typeOfTodo = ["Home", "Netbox"];
@@ -18,18 +22,16 @@ const addTodo = () => {
     setSelectedCategory(category);
     setShowDropdown(false);
   };
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (selectedCategory !== "Select category") {
-      const newTodo = {
-        category: selectedCategory,
-        content: todoContent,
-      };
-      console.log(newTodo);
-      setTodoContent("");
-      setSelectedCategory("Select category");
-      setContentMessage("Data added succesfully !");
-    } else setContentMessage("select category please...");
+    if (selectedCategory === "Select category") {
+      setContentMessage("Select category please...");
+      return;
+    }
+  await addTodoAction(selectedCategory as Category, todoContent);
+    setTodoContent("");
+    setSelectedCategory("Select category");
+    setContentMessage("Data added succesfully !");
 
     setShowMessage(true);
   };
@@ -85,6 +87,8 @@ const addTodo = () => {
               <input
                 type="text"
                 placeholder="Add new todo..."
+                id="content"
+                name="content"
                 value={todoContent}
                 onChange={(e) => setTodoContent(e.target.value)}
                 required
@@ -99,7 +103,7 @@ const addTodo = () => {
             </div>
           </div>
         </form>
-            <span>{contentMessage}</span>
+        <span>{contentMessage}</span>
       </div>
     </div>
   );
