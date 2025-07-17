@@ -1,12 +1,21 @@
 "use client";
 import { MdDelete } from "react-icons/md";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
+import { deleteTodo } from "@/app/actions/deleteTodo";
+import { useRouter } from 'next/navigation';
+
 type Props = {
+  todoId: number;
   category: string;
   title: string;
 };
 
-const TodoCard = ({ category, title }: Props) => {
+const TodoCard = ({ todoId, category, title }: Props) => {
+  const router = useRouter()
+  const handleDelete = async (idTodo: number) => {
+    await deleteTodo(idTodo);
+    router.refresh()
+  };
   return (
     <div className="mx-auto my-6 w-full max-w-md sm:max-w-lg md:max-w-2xl bg-blue-50 rounded-xl shadow-lg p-6 flex flex-col gap-6">
       {/* Todo Content */}
@@ -21,14 +30,17 @@ const TodoCard = ({ category, title }: Props) => {
         </div>
         <div className="text-2xl font-bold text-gray-800">{title}</div>
       </div>
+
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-4">
         <button className="flex items-center gap-2 px-6 py-2 bg-white text-gray-700 text-sm font-medium rounded-md border border-gray-200 shadow hover:text-green-600 transition">
           <IoCheckmarkDoneSharp size={20} />
           <span>Mark as Done</span>
         </button>
-
-        <button className="flex items-center gap-2 px-6 py-2 bg-white text-gray-700 text-sm font-medium rounded-md border border-gray-200 shadow hover:text-red-500 transition">
+        <button
+          onClick={() => handleDelete(todoId)}
+          className="flex items-center gap-2 px-6 py-2 bg-white text-gray-700 text-sm font-medium rounded-md border border-gray-200 shadow hover:text-red-500 transition"
+        >
           <MdDelete size={20} />
           <span>Delete</span>
         </button>
