@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { IoIosAdd } from "react-icons/io";
-import prisma from "@/lib/prisma";
+import { useRouter } from "next/navigation";
 import { addTodoAction } from "@/app/actions/addTodo";
 
 type Category = "Home" | "Netbox";
@@ -13,6 +13,8 @@ const addTodo = () => {
   const [todoContent, setTodoContent] = useState("");
   const [showMessage, setShowMessage] = useState(false);
   const [contentMessage, setContentMessage] = useState("");
+
+  const router = useRouter();
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
@@ -28,12 +30,17 @@ const addTodo = () => {
       setContentMessage("Select category please...");
       return;
     }
-  await addTodoAction(selectedCategory as Category, todoContent);
+    await addTodoAction(selectedCategory as Category, todoContent);
     setTodoContent("");
     setSelectedCategory("Select category");
     setContentMessage("Data added succesfully !");
 
     setShowMessage(true);
+    setTimeout(() => {
+      setShowMessage(false);
+      setContentMessage("");
+      router.refresh();
+    }, 1500);
   };
 
   return (
