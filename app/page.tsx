@@ -6,7 +6,7 @@ import prisma from "@/lib/prisma";
 export default async function Home() {
   const todos = await prisma.todo.findMany()
   return (
-    <div className="py-10 px-4 mb-60">
+    <div className="py-10 px-4">
       {/* AddTodo Section */}
       <div className="mx-auto mb-10">
         <AddTodo />

@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import type { Viewport } from 'next'
+import type { Viewport } from "next";
 import { IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
 import NavBar from "./components/navBar";
+import Footer from "./components/footer";
 
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
@@ -17,11 +18,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-}
+};
 
 export default function RootLayout({
   children,
@@ -30,10 +31,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${ibmPlexMono.className} antialiased min-h-screen bg-linear-to-b from-90% from-white to-blue-400`}>
-        <NavBar/>
-        <main>{children}</main>
-        </body>
+      <body className={`${ibmPlexMono.className} antialiased`}>
+        <div className="min-h-screen bg-linear-to-b from-90% from-white to-blue-400">
+          <NavBar />
+          <main>{children}</main>
+        </div>
+        <Footer />
+      </body>
     </html>
   );
 }

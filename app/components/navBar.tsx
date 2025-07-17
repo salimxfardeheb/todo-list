@@ -2,16 +2,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
+import {links } from "../variables"
 
 const NavBar = () => {
   const currentPath = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
-   const links = [
-    { label: "View all", href: "/" },
-    { label: "work from home", href: "/home" },
-    { label: "work from netbox", href: "/netbox" },
-  ];
 
   return (
     <nav className="flex flex-col md:flex-row items-center justify-between py-4 bg-white">
@@ -47,7 +43,7 @@ const NavBar = () => {
             <li key={link.href} className="pb-2">
               <Link
                 href={link.href}
-                className={`${link.href === currentPath ? 'text-green-500' : 'text-green-800'} hover:text-blue-700 transition-colors`}
+                className={`${link.href === currentPath ? 'text-green-500' : 'text-green-800'} transition-colors`}
               >
                 {link.label}
               </Link>
