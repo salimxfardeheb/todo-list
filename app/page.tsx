@@ -13,8 +13,8 @@ export default async function Home() {
       </div>
 
       {/* Todos Section */}
-      <ul className="max-w-4/5 mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {todos.map((todo)=> <li key={todo.id}><TodoCard todoId={todo.id}  category = {todo.category} title = {todo.content} /></li>)}
+      <ul className="max-w-4/5 mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+      {todos.map((todo)=> <li key={todo.id}><TodoCard todoId={todo.id}  category = {todo.category} title = {todo.content} done = {todo.done} /></li>)}
         
       </ul>
     </div>

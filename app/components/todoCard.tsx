@@ -2,22 +2,34 @@
 import { MdDelete } from "react-icons/md";
 import { IoCheckmarkDoneSharp } from "react-icons/io5";
 import { deleteTodo } from "@/app/actions/deleteTodo";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import { setTodo } from "../actions/setTodo";
 
 type Props = {
   todoId: number;
   category: string;
   title: string;
+  done: boolean;
 };
 
-const TodoCard = ({ todoId, category, title }: Props) => {
-  const router = useRouter()
+const TodoCard = ({ todoId, category, title, done }: Props) => {
+  const router = useRouter();
   const handleDelete = async (idTodo: number) => {
     await deleteTodo(idTodo);
-    router.refresh()
+    router.refresh();
   };
+
+  const markAsDone = async (idTodo: number) => {
+    await setTodo(idTodo);
+    router.refresh();
+  };
+
   return (
-    <div className="mx-auto my-6 w-full max-w-md sm:max-w-lg md:max-w-2xl bg-blue-50 rounded-xl shadow-lg p-6 flex flex-col gap-6">
+    <div
+      className={`${
+        done ? "bg-green-200" : "bg-blue-50"
+      } mx-auto my-6 w-full max-w-md sm:max-w-lg md:max-w-2xl rounded-xl shadow-lg p-6 flex flex-col gap-6`}
+    >
       {/* Todo Content */}
       <div className="flex flex-col gap-2">
         <div className="text-xs text-gray-500 uppercase tracking-wide">
@@ -33,7 +45,10 @@ const TodoCard = ({ todoId, category, title }: Props) => {
 
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row sm:justify-between items-center gap-4">
-        <button className="flex items-center gap-2 px-6 py-2 bg-white text-gray-700 text-sm font-medium rounded-md border border-gray-200 shadow hover:text-green-600 transition">
+        <button
+          onClick={() => markAsDone(todoId)}
+          className="flex items-center gap-2 px-6 py-2 bg-white text-gray-700 text-sm font-medium rounded-md border border-gray-200 shadow hover:text-green-600 transition"
+        >
           <IoCheckmarkDoneSharp size={20} />
           <span>Mark as Done</span>
         </button>
