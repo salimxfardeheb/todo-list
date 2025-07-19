@@ -1,22 +1,7 @@
-import AddTodo from "./components/addTodo";
-import TodoCard from "./components/todoCard";
-import prisma from "@/lib/prisma";
-
+import TodoList from "./components/todoList";
 
 export default async function Home() {
-  const todos = await prisma.todo.findMany()
-  return (
-    <div className="py-10 px-4">
-      {/* AddTodo Section */}
-      <div className="mx-auto mb-10">
-        <AddTodo />
-      </div>
-
-      {/* Todos Section */}
-      <ul className="max-w-4/5 mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-      {todos.map((todo)=> <li key={todo.id}><TodoCard todoId={todo.id}  category = {todo.category} title = {todo.content} done = {todo.done} /></li>)}
-        
-      </ul>
-    </div>
-  );
+  return <>
+  <TodoList/>
+  </>;
 }

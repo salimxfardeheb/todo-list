@@ -3,8 +3,7 @@ import { useState } from "react";
 import { IoIosAdd } from "react-icons/io";
 import { useRouter } from "next/navigation";
 import { addTodoAction } from "@/app/actions/addTodo";
-
-type Category = "Home" | "Netbox";
+import { Category } from "../variables";
 
 const addTodo = () => {
   const typeOfTodo = ["Home", "Netbox"];
