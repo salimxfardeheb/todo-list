@@ -37,7 +37,7 @@ const NavBar = () => {
       </div>
 
       {/* Navigation Links */}
-      <div className={`${isOpen ? "flex" : "hidden"} md:block w-full md:w-auto justify-center mt-6 border-b md:border-0 pb-6 px-12`}>
+      <div className={`${isOpen ? "flenpm run devx" : "hidden"} md:block w-full md:w-auto justify-center mt-6 border-b md:border-0 pb-6 px-12`}>
         <ul className="flex flex-col md:flex-row gap-4 md:gap-8 mt-4 md:mt-0 text-xl font-black text-green-900">
           {links.map((link) => (
             <li key={link.href} className="pb-2">
